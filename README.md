@@ -4,7 +4,7 @@ A *simple* **Xcode** project integrating the open source **Cinder** (OpenGL) lib
 
 All this is really just intended to be the jumping off point for your own work ...
 
-Both Cinder and ReactPhysics3D are already included, in different forms:
+## Both Cinder and ReactPhysics3D are already included, in different forms:
 
 Cinder is supplied as the pre-built `libcinder.a` provided in the `Cinder/include/lib/macosx` directory. (And of course with the header files.)
 

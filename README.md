@@ -12,7 +12,7 @@ ReactPhysics3D is supplied as full source (and headers), as when I was trying to
 
 So if you want to link in your own Cinder install, you will need to update the Cinder path (`CINDER_PATH` in `User-Defined` in `Build Settings` of the project) in Xcode to your own installation, and then you can dump all the supplied stuff. (Download Cinder from their web site.)
 
-(The Xcode project was originally generated using *TinderBox*.)
+(The Xcode project was originally generated using *TinderBox*, the Cinder-supplied utility.)
 
 The ReactPhysics3D header and source files can also be replaced with more recent versions without too much trouble. (Download the source files, makes files etc from the ReactPhysics3D site.)
 

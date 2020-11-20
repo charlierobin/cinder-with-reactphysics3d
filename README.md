@@ -1,10 +1,10 @@
 # Using Cinder with the ReactPhysics3D physics engine library in Xcode
  
-A simple Xcode project integrating the open source Cinder (OpenGL) library with the ReactPhysics3D library.
+A *simple* **Xcode** project integrating the open source **Cinder** (OpenGL) library with the **ReactPhysics3D** library.
 
-All this is really just intended to be the jumping off point for your own work.
+All this is really just intended to be the jumping off point for your own work ...
 
-Both Cinder and ReactPhysics3D are included, in different forms ...
+Both Cinder and ReactPhysics3D are already included, in different forms:
 
 Cinder is supplied as the pre-built `libcinder.a` provided in the `Cinder/include/lib/macosx` directory. (And of course with the header files.)
 
@@ -24,7 +24,7 @@ The **Cinder** site: https://libcinder.org/ (Cinder is a free and open source li
 
 The **ReactPhysics3D** site: https://www.reactphysics3d.com/ (ReactPhysics3D is a C++ physics engine library that can be used in 3D simulations and games. The library is developed by Daniel Chappuis and is released under the open-source ZLib license.)
 
-Although there’s no license/restrictions on the bits I’ve done, please note that both Cinder and ReactPhysics3D have their own licenses:
+Although there’s no license/restrictions on the few little bits I’ve done, please note that both Cinder and ReactPhysics3D have their own separate licenses:
 
 ## Cinder
 

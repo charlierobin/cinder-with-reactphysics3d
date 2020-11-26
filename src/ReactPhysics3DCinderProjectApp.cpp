@@ -3,6 +3,8 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Rand.h"
 
+#include <math.h>
+
 #include "reactphysics3d/reactphysics3d.h"
 
 #include "Item.hpp"
@@ -42,7 +44,7 @@ private:
     
     set< RigidBody * > toRemove_;
     
-    const float timestep_ = 1.0f / 60.0f;
+    const float timestep_ = 1 / 60.0;
     
     chrono::high_resolution_clock::time_point lastTimeSample_;
     float accumulator_;
@@ -58,38 +60,34 @@ private:
 };
 
 #define CENTRE_OF_THE_WORLD cinder::vec3( 0, 0, 0 )
-#define CAMERA_POSITION cinder::vec3( 0, 30, -100.0f )
-#define FAR_CLIP 20000.0f
-
-#define PI 3.14159265358979323846
-#define ONE_TURN ( PI * 2 )
-#define ONE_DEGREE ( ONE_TURN / 360.0f )
+#define CAMERA_POSITION cinder::vec3( 0, 30, -100 )
+#define FAR_CLIP 20000
+#define ONE_DEGREE ( M_PI / 180 )
 
 void ReactPhysics3DCinderProjectApp::setup()
 {
-    setFrameRate( 60.0f );
+    setFrameRate( 60 );
     
     camera_.lookAt( CAMERA_POSITION, CENTRE_OF_THE_WORLD );
     camera_.setFarClip( FAR_CLIP );
-    
-    physicsWorld_ = physicsCommon_.createPhysicsWorld();
     
     shader_ = cinder::gl::context()->getStockShader( cinder::gl::ShaderDef().texture().lambert() );
     
     texture_ = gl::Texture::create( loadImage( app::loadResource( "grid_512.png" ) ) );
     
-    createPlatform( vec3( 50.0f, 1.0f, 20.0f ), vec3( 20.0f, 15.0f, 0.0f ), 5 * ONE_DEGREE );
-    createPlatform( vec3( 10.0f, 1.0f, 20.0f ), vec3( 45.0f, 24.0f, 0.0f ), 90 * ONE_DEGREE );
+    physicsWorld_ = physicsCommon_.createPhysicsWorld();
     
-    createPlatform( vec3( 50.0f, 1.0f, 20.0f ), vec3( -20.0f, 3.0f, 0.0f ), - 5 * ONE_DEGREE );
-    createPlatform( vec3( 10.0f, 1.0f, 20.0f ), vec3( -45.0f, 12.0f, 0.0f ), 90 * ONE_DEGREE );
+    createPlatform( vec3( 50, 1, 20 ), vec3( 20, 15, 0 ), 5 * ONE_DEGREE );
+    createPlatform( vec3( 10, 1, 20 ), vec3( 45, 24, 0 ), 90 * ONE_DEGREE );
     
+    createPlatform( vec3( 50, 1, 20 ), vec3( -20, 3, 0 ), - 5 * ONE_DEGREE );
+    createPlatform( vec3( 10, 1, 20 ), vec3( -45, 12, 0 ), 90 * ONE_DEGREE );
     
-    createPlatform( vec3( 50.0f, 1.0f, 20.0f ), vec3( 20.0f, -9.0f, 0.0f ), 5 * ONE_DEGREE );
-    createPlatform( vec3( 10.0f, 1.0f, 20.0f ), vec3( 45.0f, 0.0f, 0.0f ), 90 * ONE_DEGREE );
+    createPlatform( vec3( 50, 1, 20 ), vec3( 20, -9, 0 ), 5 * ONE_DEGREE );
+    createPlatform( vec3( 10, 1, 20 ), vec3( 45, 0, 0 ), 90 * ONE_DEGREE );
     
-    createPlatform( vec3( 50.0f, 1.0f, 20.0f ), vec3( -20.0f, -21.0f, 0.0f ), - 5 * ONE_DEGREE );
-    createPlatform( vec3( 10.0f, 1.0f, 20.0f ), vec3( -45.0f, -12.0f, 0.0f ), 90 * ONE_DEGREE );
+    createPlatform( vec3( 50, 1, 20 ), vec3( -20, -21, 0 ), - 5 * ONE_DEGREE );
+    createPlatform( vec3( 10, 1, 20 ), vec3( -45, -12, 0 ), 90 * ONE_DEGREE );
     
     outOfBounds_ = physicsWorld_->createCollisionBody( Transform( Vector3( 0, -60, 0 ), Quaternion::identity() ) );
     CollisionShape * boxShape = physicsCommon_.createBoxShape( Vector3( 500, 5, 500 ) );
@@ -154,7 +152,7 @@ void ReactPhysics3DCinderProjectApp::createPlatform( vec3 dimensions, vec3 posit
     
     body->setType( BodyType::STATIC );
     
-    CollisionShape * boxShape = physicsCommon_.createBoxShape( Vector3( dimensions.x / 2.0f, dimensions.y / 2.0f, dimensions.z / 2.0f ) );
+    CollisionShape * boxShape = physicsCommon_.createBoxShape( Vector3( dimensions.x / 2, dimensions.y / 2, dimensions.z / 2 ) );
     
     body->addCollider( boxShape, Transform::identity() );
     
@@ -172,7 +170,7 @@ void ReactPhysics3DCinderProjectApp::keyDown( KeyEvent event )
 {
     if ( event.getCode() == KeyEvent::KEY_SPACE )
     {
-        createBall( randFloat( 2.0f, 4.0f ), vec3( randFloat( 15.0f, 20.0f ), 30.0f, randFloat( -0.5f, 0.5f ) ) );
+        createBall( randFloat( 2, 4 ), vec3( randFloat( 15, 20 ), 30, randFloat( -0.5, 0.5 ) ) );
     }
 }
 
@@ -202,14 +200,14 @@ void ReactPhysics3DCinderProjectApp::update()
     
     float nanoseconds = chrono::duration_cast<chrono::nanoseconds>( thisTimeSample - lastTimeSample_ ).count();
     
-    float seconds = nanoseconds / 1000000000.0f;
+    float seconds = nanoseconds / 1000000000;
     
     lastTimeSample_ = thisTimeSample;
     
     accumulator_ = accumulator_ + seconds;
     
     while ( accumulator_ >= timestep_ ) {
-        
+    
         physicsWorld_->update( timestep_ );
         
         accumulator_ = accumulator_ - timestep_;

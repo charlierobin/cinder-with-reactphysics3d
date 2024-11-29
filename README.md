@@ -16,7 +16,7 @@ So if you want to link in your own Cinder install, you will need to update the C
 
 The ReactPhysics3D header and source files can also be replaced with more recent versions without too much trouble. (Download the source files, makes files etc from the ReactPhysics3D site.)
 
-[![Watch the video](https://storage.googleapis.com/charlierobin-1245.appspot.com/videos/work/cinder-and-reactphysics3d.jpg)](https://storage.googleapis.com/charlierobin-1245.appspot.com/videos/work/cinder-and-reactphysics3d.mp4)
+https://github.com/user-attachments/assets/38318e3e-23a7-4242-b40e-9c2e46ac6c00
 
 *Cinder version used:* 0.9.2
 
